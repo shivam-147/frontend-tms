@@ -29,9 +29,11 @@ function LoginPage() {
             setForm({ email: '', password: '' })
             setError('')
         }
-        catch (error) {
-            console.log(error.message)
-        }
+        catch (err) {
+            if (err.response &&
+                err.response.status === 401)
+                setError(err.response.data.message);
+        } 
     }
 
     return (
