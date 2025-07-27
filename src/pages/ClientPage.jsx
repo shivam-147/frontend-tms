@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 import API from "../axios/api";
 import React from 'react';
+import { useRef } from "react";
 
 function ClientPage() {
     const { clientId } = useParams();
@@ -11,6 +12,8 @@ function ClientPage() {
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [summary, setSummary] = useState(null)
+    const btn1 = useRef()
+    const btn2 = useRef()
 
     const authHeader = {
         headers: { Authorization: `Bearer ${user?.token}` }
@@ -69,7 +72,7 @@ function ClientPage() {
     useEffect(() => {
         fetchClientData();
         fetchSummary();
-    }, [clientId, handleMark]);
+    }, [clientId, btn1, btn2]);
 
     if (loading || !client) return <p className="p-4">Loading...</p>;
 
@@ -80,8 +83,8 @@ function ClientPage() {
 
             {/* Mark Today's Tiffin */}
             <div className="mb-6 space-x-3">
-                <button onClick={() => handleMark('morning')} className="bg-yellow-500 text-white px-4 py-2 rounded">☀️ Morning</button>
-                <button onClick={() => handleMark('evening')} className="bg-purple-500 text-white px-4 py-2 rounded">🌙 Evening</button>
+                <button ref={btn1} onClick={() => handleMark('morning')} className="bg-yellow-500 text-white px-4 py-2 rounded">☀️ Morning</button>
+                <button ref={btn2} onClick={() => handleMark('evening')} className="bg-purple-500 text-white px-4 py-2 rounded">🌙 Evening</button>
             </div>
 
             {/* Past Records Table */}
