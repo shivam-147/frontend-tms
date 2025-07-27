@@ -12,8 +12,6 @@ function ClientPage() {
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [summary, setSummary] = useState(null)
-    const btn1 = useRef()
-    const btn2 = useRef()
 
     const authHeader = {
         headers: { Authorization: `Bearer ${user?.token}` }
@@ -64,6 +62,7 @@ function ClientPage() {
 
             await API.post('/tiffins/', data, authHeader);
             fetchClientData();
+            fetchSummary();
         } catch (err) {
             console.error('Failed to mark tiffin:', err);
         }
@@ -72,7 +71,7 @@ function ClientPage() {
     useEffect(() => {
         fetchClientData();
         fetchSummary();
-    }, [clientId, btn1, btn2]);
+    }, [clientId]);
 
     if (loading || !client) return <p className="p-4">Loading...</p>;
 
@@ -83,8 +82,8 @@ function ClientPage() {
 
             {/* Mark Today's Tiffin */}
             <div className="mb-6 space-x-3">
-                <button ref={btn1} onClick={() => handleMark('morning')} className="bg-yellow-500 text-white px-4 py-2 rounded">☀️ Morning</button>
-                <button ref={btn2} onClick={() => handleMark('evening')} className="bg-purple-500 text-white px-4 py-2 rounded">🌙 Evening</button>
+                <button onClick={() => handleMark('morning')} className="bg-yellow-500 text-white px-4 py-2 rounded">☀️ Morning</button>
+                <button onClick={() => handleMark('evening')} className="bg-purple-500 text-white px-4 py-2 rounded">🌙 Evening</button>
             </div>
 
             {/* Past Records Table */}
