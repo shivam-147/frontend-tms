@@ -69,7 +69,7 @@ function ClientPage() {
     useEffect(() => {
         fetchClientData();
         fetchSummary();
-    }, [clientId]);
+    }, [clientId, handleMark]);
 
     if (loading || !client) return <p className="p-4">Loading...</p>;
 
