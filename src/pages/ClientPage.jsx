@@ -117,8 +117,8 @@ function ClientPage() {
                     <p>Month: {summary?.month}, year: {summary?.year}</p>
                     <p>Morning Tiffins: {summary?.morningCount}</p>
                     <p>Evening Tiffine: {summary?.eveningCount}</p>
-                    <p>Total Tiffines: {summary?.totalTiffin}</p>
-                    <p>Rate Per Tiffine: {summary?.ratePerTiffin}</p>
+                    <p>Total Tiffines: {summary?.totalTiffins}</p>
+                    <p>Rate Per Tiffine: {summary?.ratePerTiffins}</p>
                     <p>Total Amount : {summary?.totalAmount}</p>
                 </div>
             )}

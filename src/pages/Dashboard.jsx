@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTiffin } from '../contexts/TiffineContext'
+import { useTiffin } from '../contexts/TiffineContext';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router';
 
@@ -17,66 +17,94 @@ const Dashboard = () => {
         setShowForm(false);
     };
 
+    const getInitials = (name) => {
+        const arr = name.split(' ');
+        if (arr.length === 1) return arr[0][0].toUpperCase();
+        return arr[0][0].toUpperCase() + arr[1][0].toUpperCase();
+    };
+
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
-            <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Tiffin Dashboard</h1>
-                <button onClick={logout} className="bg-red-500 text-white px-3 py-1 rounded">Logout</button>
+        <div className="p-6 bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen">
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-bold text-gray-800">🥗 Tiffin Dashboard</h1>
+                <button
+                    onClick={logout}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-200 shadow"
+                >
+                    Logout
+                </button>
             </div>
 
-            {/* Add Client Button */}
-            <div className="mb-4">
-                <button onClick={() => setShowForm(!showForm)} className="bg-blue-600 text-white px-4 py-2 rounded">
-                    {showForm ? 'Close' : '➕ Add Client'}
+            <div className="mb-6">
+                <button
+                    onClick={() => setShowForm(!showForm)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md font-medium transition duration-200 shadow"
+                >
+                    {showForm ? 'Close Form' : '➕ Add New Client'}
                 </button>
             </div>
 
             {/* Add Client Form */}
             {showForm && (
-                <form onSubmit={handleAddClient} className="bg-white p-4 mb-4 rounded shadow max-w-md">
-                    <h2 className="text-lg font-bold mb-2">New Client</h2>
+                <form
+                    onSubmit={handleAddClient}
+                    className="bg-white p-6 rounded-xl shadow-md max-w-md mb-8 animate-fadeIn"
+                >
+                    <h2 className="text-xl font-bold mb-4 text-gray-700">Add Client</h2>
                     <input
-                        className="w-full border p-2 mb-2"
+                        className="w-full border border-gray-300 rounded-md p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Client Name"
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
                         required
                     />
                     <input
-                        className="w-full border p-2 mb-2"
+                        className="w-full border border-gray-300 rounded-md p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Phone Number"
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
                         required
                     />
                     <input
-                        className="w-full border p-2 mb-2"
-                        placeholder="Rate Per Tiffin (₹)"
                         type="number"
+                        className="w-full border border-gray-300 rounded-md p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Rate Per Tiffin (₹)"
                         value={form.ratePerTiffin}
                         onChange={(e) => setForm({ ...form, ratePerTiffin: e.target.value })}
                         required
                     />
-                    <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">Add Client</button>
+                    <button
+                        type="submit"
+                        className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-md transition duration-200 shadow"
+                    >
+                        ✅ Add Client
+                    </button>
                 </form>
             )}
 
-            {/* Client Cards */}
+            {/* Clients */}
             {loading ? (
-                <p>Loading clients...</p>
+                <p className="text-gray-600 text-lg">Loading clients...</p>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {clients.map(client => (
-                        <div key={client._id} className="flex justify-between items-center bg-white p-4 shadow rounded">
-                            <div >
-                                <h2 className="text-lg font-semibold">{client.name}</h2>
-                                <p className="text-sm text-gray-600">{client.phone}</p>
-                                <p className="text-sm text-gray-500">₹{client.ratePerTiffin}/tiffin</p>
-
+                        <div
+                            key={client._id}
+                            className="bg-white p-5 rounded-xl shadow-lg hover:shadow-xl transition duration-300"
+                        >
+                            <div className="flex items-center mb-4">
+                                <div className="bg-blue-500 text-white text-lg font-bold w-12 h-12 flex items-center justify-center rounded-full shadow">
+                                    {getInitials(client.name)}
+                                </div>
+                                <div className="ml-4">
+                                    <h3 className="text-lg font-semibold text-gray-800">{client.name}</h3>
+                                    <p className="text-gray-500 text-sm">{client.phone}</p>
+                                    <p className="text-gray-600 text-sm mt-1">₹{client.ratePerTiffin}/tiffin</p>
+                                </div>
                             </div>
                             <Link to={`/client/${client._id}`}>
-                                <button className="mt-2 bg-indigo-600 text-white px-3 py-1 rounded">
-                                    View Tiffine
+                                <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200 w-full">
+                                    View Tiffin Records
                                 </button>
                             </Link>
                         </div>
