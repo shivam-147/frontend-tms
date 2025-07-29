@@ -33,13 +33,8 @@ function LoginPage() {
             setForm({ email: '', password: '' })
             setError('')
         }
-        catch (err) {
-            if (err.response && err.response.data && err.response.data.message) {
-                setError(err.response.data.message)
-            }
-            else {
-                setError('Internal Server Error')
-            }
+        catch (error) {
+            console.log(error.message)
         }
     }
 
