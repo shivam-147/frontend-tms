@@ -75,7 +75,7 @@ function ClientPage() {
     }, [clientId]);
 
     if (loading || !client) return <Loader />;
-
+    S
     return (
         <div className="mb-6 space-x-3 p-4">
             <h1 className="text-2xl font-bold mb-2">{client?.name}'s Tiffin Record</h1>
