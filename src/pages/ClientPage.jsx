@@ -75,7 +75,6 @@ function ClientPage() {
     }, [clientId]);
 
     if (loading || !client) return <Loader />;
-    S
     return (
         <div className="mb-6 space-x-3 p-4">
             <h1 className="text-2xl font-bold mb-2">{client?.name}'s Tiffin Record</h1>
@@ -118,7 +117,7 @@ function ClientPage() {
                     <p>Month: {summary?.month}, year: {summary?.year}</p>
                     <p>Morning Tiffins: {summary?.morningCount}</p>
                     <p>Evening Tiffine: {summary?.eveningCount}</p>
-                    <p>Total Tiffines: {summary?.totalTiffins}</p>
+                    <p>Total Tiffines: {summary?.morningCount + summary?.eveningCount}</p>
                     <p>Rate Per Tiffine: {summary?.ratePerTiffins}</p>
                     <p>Total Amount : {summary?.totalAmount}</p>
                 </div>
