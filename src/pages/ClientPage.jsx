@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import API from "../axios/api";
 import React from 'react';
 import { useRef } from "react";
+import Loader from "../components/Loader";
 
 function ClientPage() {
     const { clientId } = useParams();
@@ -73,7 +74,7 @@ function ClientPage() {
         fetchSummary();
     }, [clientId]);
 
-    if (loading || !client) return <p className="p-4">Loading...</p>;
+    if (loading || !client) return <Loader />;
 
     return (
         <div className="mb-6 space-x-3 p-4">

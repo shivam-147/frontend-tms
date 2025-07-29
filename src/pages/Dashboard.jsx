@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTiffin } from '../contexts/TiffineContext';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router';
+import Loader from '../components/Loader';
 
 const Dashboard = () => {
     const { clients, addClient, loading } = useTiffin();
@@ -84,7 +85,7 @@ const Dashboard = () => {
 
             {/* Clients */}
             {loading ? (
-                <p className="text-gray-600 text-lg">Loading clients...</p>
+                <Loader />
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {clients.map(client => (
