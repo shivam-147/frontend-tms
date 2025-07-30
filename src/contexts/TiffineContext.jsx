@@ -41,6 +41,7 @@ export const TiffinProvider = ({ children }) => {
         }
     }
 
+
     useEffect(() => {
         if (user) fetechClients()
     }, [user])

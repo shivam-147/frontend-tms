@@ -3,11 +3,11 @@ import { useTiffin } from '../contexts/TiffineContext';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router';
 import Loader from '../components/Loader';
+import API from '../axios/api';
 
 const Dashboard = () => {
-    const { clients, addClient, loading } = useTiffin();
-    const { logout } = useAuth();
-
+    const { clients, addClient, loading, fetechClients } = useTiffin();
+    const { logout, user } = useAuth();
     const [showForm, setShowForm] = useState(false);
     const [form, setForm] = useState({ name: '', phone: '', ratePerTiffin: 60 });
 
@@ -17,6 +17,27 @@ const Dashboard = () => {
         setForm({ name: '', phone: '', ratePerTiffin: 60 });
         setShowForm(false);
     };
+
+    const handleDelete = async (clientId) => {
+        try {
+            const res = await API.delete(`/clients/${clientId}`, {
+                headers: {
+                    Authorization: `Bearer ${user?.token}`
+                }
+            })
+            console.log(res.data.message)
+            fetechClients()
+        }
+        catch (err) {
+            if (err.response && err.response.data && err.response.data.message) {
+                console.log(err.response.data.message)
+            }
+            else {
+                console.log('Internal server error', err)
+            }
+        }
+
+    }
 
     const getInitials = (name) => {
         const arr = name.split(' ');
@@ -108,6 +129,9 @@ const Dashboard = () => {
                                     View Tiffin Records
                                 </button>
                             </Link>
+                            <button className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 my-2 rounded-md text-sm font-medium transition duration-200 w-full" onClick={() => handleDelete(client._id)}>
+                                Delete
+                            </button>
                         </div>
                     ))}
                 </div>

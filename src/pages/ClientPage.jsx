@@ -31,7 +31,6 @@ function ClientPage() {
                 }
             });
             setSummary(res.data);
-            console.log(res.data);
         } catch (error) {
             console.error("Failed to fetch summary:", error);
         }
@@ -118,7 +117,7 @@ function ClientPage() {
                     <p>Morning Tiffins: {summary?.morningCount}</p>
                     <p>Evening Tiffine: {summary?.eveningCount}</p>
                     <p>Total Tiffines: {summary?.morningCount + summary?.eveningCount}</p>
-                    <p>Rate Per Tiffine: {summary?.ratePerTiffins}</p>
+                    <p>Rate Per Tiffine: {summary?.ratePerTiffin}</p>
                     <p>Total Amount : {summary?.totalAmount}</p>
                 </div>
             )}
